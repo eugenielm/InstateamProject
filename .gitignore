@@ -1,0 +1,3 @@
+db.sqlite3
+dev_secret_key.txt
+*__pycache__
