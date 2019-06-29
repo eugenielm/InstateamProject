@@ -13,6 +13,7 @@
     <div id="subTitle">You have {{team_members.count}} teammembers.</div>
 
         {% for member in team_members %}
+        <a href="{% url 'team_members_update' member.pk %}">
             <div class="memberInfo">
                 <hr>
                 {% if member.is_admin %}
@@ -23,6 +24,7 @@
                 <div class="memberPhone">{{member.phone}}</div>
                 <div class="memberEmail">{{member.email}}</div>
             </div>
+        </a>
         {% endfor %}
         <hr>
 

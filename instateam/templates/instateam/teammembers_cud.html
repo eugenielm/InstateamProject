@@ -2,12 +2,15 @@
 
 {% block content %}
 
-    <div id="pageTitle">Add page</div>
-
-    <div id="mainTitle">Add a team member</div>
-
-    <div id="subTitle">Set contact info and role.</div>
-
+    {% if teammember %}
+        <div id="pageTitle">Edit page</div>
+        <div id="mainTitle">Edit a team member</div>
+        <div id="subTitle">Edit contact info and role.</div>
+    {% else %}
+        <div id="pageTitle">Add page</div>
+        <div id="mainTitle">Add a team member</div>
+        <div id="subTitle">Set contact info and role.</div>
+    {% endif %}
 
     <form method="post" id="createMemberForm">
         {% csrf_token %}
@@ -22,6 +25,9 @@
             <span>Admin - Can delete members</span>
             <input type='radio' name='role' value='admin'/>
         </div>
+        {% if teammember %}
+            <div><a href="{% url 'team_members_delete' teammember.pk %}">Delete</a></div>
+        {% endif %}
         <div><input type="submit" value="Save"></div>
     </form>
 
