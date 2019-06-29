@@ -5,7 +5,7 @@ class TeamMember(models.Model):
     first_name = models.CharField(max_length=60)
     last_name = models.CharField(max_length=60)
     # A CharField that uses an EmailValidator for checking (max_length=254)
-    email = models.EmailField()
+    email = models.EmailField(unique=True)
     phone = models.CharField(
         # we assume the phone number will have the following format: xxx-yyy-zzzz
         max_length=12, 
