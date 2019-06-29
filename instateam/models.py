@@ -1,4 +1,8 @@
+import re
+
+from django.core.exceptions import ValidationError
 from django.db import models
+from django.utils.translation import gettext_lazy as _
 
 
 class TeamMember(models.Model):
@@ -25,3 +29,25 @@ class TeamMember(models.Model):
 
     def is_admin(self):
         return self.role == 'admin'
+
+    def clean_fields(self, *args, **kwargs):
+        # takes care of the email field validation and checks the presence of 
+        # first/last name, phone, and role
+        super().clean_fields(*args, **kwargs)
+        errors = {}
+        # make sure the phone number is in the right format
+        if not re.match('^[\d]{3}-[\d]{3}-[\d]{4}$', getattr(self, 'phone')):
+            errors['phone'] = "A phone number must be in the following format: 111-222-3333"
+        # make sure the first name is valid
+        if not re.match("^[a-zA-Z\-\s']{1,60}$", getattr(self, 'first_name')):
+            errors['first_name'] = "Please provide a valid first name."
+        # make sure the last name is valid
+        if not re.match("^[a-zA-Z\-\s']{1,60}$", getattr(self, 'last_name')):
+            errors['last_name'] = "Please provide a valid last name."
+        ### To be improved (?): first and last names should be allowed to contain accented characters
+        
+        if errors:
+            raise ValidationError({
+                k: ValidationError(_(v), code='invalid')\
+                    for k,v in errors.items()
+            })

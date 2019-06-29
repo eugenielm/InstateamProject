@@ -1,0 +1,28 @@
+{% extends "instateam/base.html" %}
+
+{% block content %}
+
+    <div id="pageTitle">Add page</div>
+
+    <div id="mainTitle">Add a team member</div>
+
+    <div id="subTitle">Set contact info and role.</div>
+
+
+    <form method="post" id="createMemberForm">
+        {% csrf_token %}
+        <div class='sectionName'>Info</div>
+        {{ form.as_p }}
+        <div class='sectionName'>Role</div>            
+        <div class="radioButtonLabel">
+            <span>Regular - Can't delete members</span>
+            <input type='radio' name='role' value='regular' checked/>
+        </div>
+        <div class="radioButtonLabel">
+            <span>Admin - Can delete members</span>
+            <input type='radio' name='role' value='admin'/>
+        </div>
+        <div><input type="submit" value="Save"></div>
+    </form>
+
+{% endblock %}
