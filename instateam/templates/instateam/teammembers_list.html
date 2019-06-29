@@ -1,0 +1,31 @@
+{% extends "instateam/base.html" %}
+
+{% block content %}
+
+    <div id="pageTitle">List page</div>
+
+    <div id="addMemberButton">+</div>
+
+    <div id="mainTitle">Team members</div>
+
+    {% if team_members and team_members.count >= 0 %}
+        
+    <div id="subTitle">You have {{team_members.count}} teammembers.</div>
+
+        {% for member in team_members %}
+            <div class="memberInfo">
+                <hr>
+                {% if member.is_admin %}
+                    <div class="memberName">{{member.get_fullname}} (admin)</div>
+                {% else %}
+                    <div class="memberName">{{member.get_fullname}}</div>
+                {% endif %}
+                <div class="memberPhone">{{member.phone}}</div>
+                <div class="memberEmail">{{member.email}}</div>
+            </div>
+        {% endfor %}
+        <hr>
+
+    {% endif %}
+
+{% endblock %}
