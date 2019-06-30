@@ -9,7 +9,7 @@
 }
 
 #sectionNameRole {
-    margin-bottom: 10px;
+    margin-bottom: 20px;
 }
 
 #memberForm #sectionNameInfo input {
@@ -23,7 +23,7 @@
 #sectionNameRole div:first-of-type {
     font-weight: bold;
     font-size: 1em;
-    margin: 20px 0;
+    margin: 15px 0;
 }
 
 #sectionNameRole label {
@@ -61,22 +61,26 @@
     padding: 6px 12px;
     font-size: 0.7em;
     border-radius: 3px;
+    color: red;
+    cursor: pointer;
 }
 
 #deleteButton:hover {
     background-color: #eee;
 }
 
-#deleteButton a {
-    color: red;
-}
-
 #spaceSave {
     height: 30px;
+}
+
+ul#id_role li {
+    padding: 10px 0;
+    border-bottom: solid thin #e0e0e0;
 }
 
 /* errors */
 ul.errorlist {
     color: red;
     font-size: 0.7em;
+    font-weight: normal;
 }

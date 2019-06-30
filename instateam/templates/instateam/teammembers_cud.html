@@ -4,12 +4,6 @@
     {% load static %}
     <link rel="stylesheet" type="text/css" href="{% static 'instateam/teammembers_cud.css' %}">
 
-    {% if teammember %}
-        <div id="pageTitle">Edit page</div>
-    {% else %}
-        <div id="pageTitle">Add page</div>
-    {% endif %}
-
     <div id="pageContent">
         {% if teammember %}
             <div id="mainTitleAddEdit">Edit a team member</div>
@@ -38,13 +32,15 @@
                 <div>Role</div>
                 {{form.role}}
             </div>
-            <hr>
-            {% if teammember %}
-                <div id="deleteButton"><a href="{% url 'team_members_delete' teammember.pk %}">Delete</a></div>
-            {% endif %}
             <div id="spaceSave"></div>
             <div id="saveButton"><input type="submit" value="Save"></div>
         </form>
+        {% if teammember %}
+            <form method='post' action="{% url 'team_members_delete' teammember.pk %}">
+                {% csrf_token %}
+                <input id="deleteButton" type='submit' value='Delete'>
+            </form>
+        {% endif %}
     </div>
 
 {% endblock %}

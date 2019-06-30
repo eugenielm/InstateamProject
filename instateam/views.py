@@ -1,7 +1,8 @@
 from django import forms
 from django.shortcuts import redirect
 from django.urls import reverse
-from django.views.generic import ListView, CreateView, UpdateView
+from django.views.generic.list import ListView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 
 from .models import TeamMember
 
@@ -57,10 +58,8 @@ class TeamMembersUpdate(UpdateView):
         return reverse('team_members_list')
 
 
-def delete_teammember(request, pk):
-    try:
-        mb = TeamMember.objects.get(id=pk)
-        mb.delete()
-    # note for later: if exception, an error message should be displayed
-    except: pass
-    return redirect('team_members_list')
+class TeamMembersDelete(DeleteView):
+    model = TeamMember
+
+    def get_success_url(self):
+        return reverse('team_members_list')

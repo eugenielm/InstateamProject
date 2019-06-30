@@ -10,6 +10,6 @@ urlpatterns = [
         name='team_members_create'),
     re_path('^teammembers/(?P<pk>\d+)/edit/?$', views.TeamMembersUpdate.as_view(), 
         name='team_members_update'),
-    re_path('^teammembers/(?P<pk>\d+)/delete/?$', views.delete_teammember, 
+    re_path('^teammembers/(?P<pk>\d+)/delete/?$', views.TeamMembersDelete.as_view(), 
         name='team_members_delete'),
 ]
