@@ -1,3 +1,4 @@
+from django import forms
 from django.shortcuts import redirect
 from django.urls import reverse
 from django.views.generic import ListView, CreateView, UpdateView
@@ -30,6 +31,10 @@ class TeamMembersCreate(CreateView):
         form.fields['last_name'].widget.attrs['placeholder'] = 'last name'
         form.fields['phone'].widget.attrs['placeholder'] = 'phone number - e.g. 111-222-3333'
         form.fields['email'].widget.attrs['placeholder'] = 'email'
+        form.fields['role'].widget = forms.RadioSelect(choices=[
+            ('regular', "Regular - Can't delete members"), 
+            ('admin',  'Admin - Can delete members')
+        ])
         return form
 
 
@@ -41,6 +46,18 @@ class TeamMembersUpdate(UpdateView):
 
     def get_success_url(self):
         return reverse('team_members_list')
+    
+    def get_form(self, *args):
+        form = super().get_form(*args)
+        form.fields['first_name'].widget.attrs['placeholder'] = 'first name'
+        form.fields['last_name'].widget.attrs['placeholder'] = 'last name'
+        form.fields['phone'].widget.attrs['placeholder'] = 'phone number - e.g. 111-222-3333'
+        form.fields['email'].widget.attrs['placeholder'] = 'email'
+        form.fields['role'].widget = forms.RadioSelect(choices=[
+            ('regular', "Regular - Can't delete members"), 
+            ('admin',  'Admin - Can delete members')
+        ])
+        return form
 
 
 def delete_teammember(request, pk):

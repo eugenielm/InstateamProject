@@ -19,6 +19,12 @@ hr {
     border: solid 1px #f1eeee;
 }
 
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
 #content {
     width: 95%;
     max-width: 500px;

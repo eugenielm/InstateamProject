@@ -23,17 +23,20 @@
 
         <form method="post" id="memberForm">
             {% csrf_token %}
-            <div id='sectionNameInfo'>Info</div>
-            {{ form.as_p }}
-            <div id='sectionNameRole'>Role</div>            
-            <div class="radioButtonDiv">
-                <span>Regular - Can't delete members</span>
-                <input type='radio' name='role' value='regular' checked/>
+            <div id='sectionNameInfo'>
+                <div>Info</div>
+                {{form.first_name}}
+                {{form.first_name.errors}}
+                {{form.last_name}}
+                {{form.last_name.errors}}
+                {{form.email}}
+                {{form.email.errors}}
+                {{form.phone}}
+                {{form.phone.errors}}
             </div>
-            <hr>
-            <div class="radioButtonDiv">
-                <span>Admin - Can delete members</span>
-                <input type='radio' name='role' value='admin'/>
+            <div id='sectionNameRole'>
+                <div>Role</div>
+                {{form.role}}
             </div>
             <hr>
             {% if teammember %}

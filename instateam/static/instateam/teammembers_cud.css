@@ -2,7 +2,7 @@
     font-size: 1.5em;
 }
 
-#sectionNameInfo, #sectionNameRole {
+#sectionNameInfo {
     font-weight: bold;
     font-size: 1em;
     margin: 20px 0;
@@ -12,32 +12,27 @@
     margin-bottom: 10px;
 }
 
-#memberForm p label {
-    display: none;
-}
-
-#memberForm p {
-    margin: 5px 0;
-}
-
-#memberForm input {
+#memberForm #sectionNameInfo input {
     padding: 6px 12px;
     border: solid thin #e0e0e0;
     border-radius: 3px;
     width: calc(100% - 25px);
+    margin: 5px 0;
 }
 
-#memberForm p:last-of-type {
-    display: none;
+#sectionNameRole div:first-of-type {
+    font-weight: bold;
+    font-size: 1em;
+    margin: 20px 0;
 }
 
-.radioButtonDiv input {
+#sectionNameRole label {
+    font-size: 0.7em;
+}
+
+#memberForm #sectionNameRole input {
     float: right;
     width: auto !important;
-}
-
-.radioButtonDiv span {
-    font-size: 0.7em;
 }
 
 #saveButton {
@@ -51,6 +46,8 @@
     border: none;
     color: white;
     cursor: pointer;
+    padding: 6px 12px;
+    border-radius: 3px;
 }
 
 #saveButton input:hover {
@@ -80,10 +77,6 @@
 
 /* errors */
 ul.errorlist {
-    list-style-type: none;
     color: red;
     font-size: 0.7em;
-    margin: 0;
-    padding: 0;
-
 }
