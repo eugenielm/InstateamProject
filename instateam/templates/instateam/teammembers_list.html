@@ -1,33 +1,43 @@
 {% extends "instateam/base.html" %}
 
 {% block content %}
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'instateam/teammembers_list.css' %}">
 
     <div id="pageTitle">List page</div>
 
-    <div id="addMemberButton"><a href="{% url 'team_members_create' %}">+</a></div>
+    <div id="pageContent">
 
-    <div id="mainTitle">Team members</div>
+        <div id="addMemberButton"><a href="{% url 'team_members_create' %}">+</a></div>
 
-    {% if team_members and team_members.count >= 0 %}
-        
-    <div id="subTitle">You have {{team_members.count}} teammembers.</div>
+        <div id="mainTitle">Team members</div>
 
-        {% for member in team_members %}
-        <a href="{% url 'team_members_update' member.pk %}">
-            <div class="memberInfo">
+        {% if team_members and team_members.count >= 0 %}
+            
+        <div id="subTitle">You have {{team_members.count}} teammembers.</div>
+
+            {% for member in team_members %}
+            <a href="{% url 'team_members_update' member.pk %}">
                 <hr>
-                {% if member.is_admin %}
-                    <div class="memberName">{{member.get_fullname}} (admin)</div>
-                {% else %}
-                    <div class="memberName">{{member.get_fullname}}</div>
-                {% endif %}
-                <div class="memberPhone">{{member.phone}}</div>
-                <div class="memberEmail">{{member.email}}</div>
-            </div>
-        </a>
-        {% endfor %}
-        <hr>
+                <div class="memberInfo">
+                    <div class="memberAvatar"><i class="fas fa-user"></i></div>
+                    <div class="memberContact">
+                        {% if member.is_admin %}
+                            <div class="memberName">{{member.get_fullname}} (admin)</div>
+                        {% else %}
+                            <div class="memberName">{{member.get_fullname}}</div>
+                        {% endif %}
+                        <div class="memberPhone">{{member.phone}}</div>
+                        <div class="memberEmail">{{member.email}}</div>
+                    
+                    </div>
+                </div>
+            </a>
+            {% endfor %}
+            
+            <hr>
 
-    {% endif %}
+        {% endif %}
+    </div>
 
 {% endblock %}

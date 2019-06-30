@@ -1,34 +1,47 @@
 {% extends "instateam/base.html" %}
 
 {% block content %}
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'instateam/teammembers_cud.css' %}">
 
     {% if teammember %}
         <div id="pageTitle">Edit page</div>
-        <div id="mainTitle">Edit a team member</div>
-        <div id="subTitle">Edit contact info and role.</div>
     {% else %}
         <div id="pageTitle">Add page</div>
-        <div id="mainTitle">Add a team member</div>
-        <div id="subTitle">Set contact info and role.</div>
     {% endif %}
 
-    <form method="post" id="createMemberForm">
-        {% csrf_token %}
-        <div class='sectionName'>Info</div>
-        {{ form.as_p }}
-        <div class='sectionName'>Role</div>            
-        <div class="radioButtonLabel">
-            <span>Regular - Can't delete members</span>
-            <input type='radio' name='role' value='regular' checked/>
-        </div>
-        <div class="radioButtonLabel">
-            <span>Admin - Can delete members</span>
-            <input type='radio' name='role' value='admin'/>
-        </div>
+    <div id="pageContent">
         {% if teammember %}
-            <div><a href="{% url 'team_members_delete' teammember.pk %}">Delete</a></div>
+            <div id="mainTitleAddEdit">Edit a team member</div>
+            <div id="subTitle">Edit contact info and role.</div>
+        {% else %}
+            <div id="mainTitleAddEdit">Add a team member</div>
+            <div id="subTitle">Set contact info and role.</div>
         {% endif %}
-        <div><input type="submit" value="Save"></div>
-    </form>
+
+        <hr>
+
+        <form method="post" id="memberForm">
+            {% csrf_token %}
+            <div id='sectionNameInfo'>Info</div>
+            {{ form.as_p }}
+            <div id='sectionNameRole'>Role</div>            
+            <div class="radioButtonDiv">
+                <span>Regular - Can't delete members</span>
+                <input type='radio' name='role' value='regular' checked/>
+            </div>
+            <hr>
+            <div class="radioButtonDiv">
+                <span>Admin - Can delete members</span>
+                <input type='radio' name='role' value='admin'/>
+            </div>
+            <hr>
+            {% if teammember %}
+                <div id="deleteButton"><a href="{% url 'team_members_delete' teammember.pk %}">Delete</a></div>
+            {% endif %}
+            <div id="spaceSave"></div>
+            <div id="saveButton"><input type="submit" value="Save"></div>
+        </form>
+    </div>
 
 {% endblock %}

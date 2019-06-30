@@ -1,0 +1,47 @@
+#mainTitle {
+    font-size: 1.5em;
+    margin-top: 20px;
+}
+
+#addMemberButton a {
+    color: #8888de;
+    margin-top: -10px;
+    font-size: 2em;
+    float: right;
+}
+
+.memberInfo {
+    margin: 15px 0;
+}
+
+.memberAvatar, .memberContact {
+    display: inline-block;
+}
+
+.memberAvatar {
+    float: left;
+    font-size: 1.2em;
+    height: 1em;
+    width: 1em;
+    text-align: center;
+    border: solid 1px #cecece;
+    color: #f5f5f5;
+    border-radius: 50px;
+    padding: 5px;
+    background-color: #cccccc;
+    margin-right: 12px;
+}
+
+.memberContact {
+    font-size: 0.7em;
+    color: #949494;
+}
+
+.memberContact div {
+    margin: 2px 0;
+}
+
+.memberContact .memberName {
+    font-weight: bold;
+    color: #272727;
+}

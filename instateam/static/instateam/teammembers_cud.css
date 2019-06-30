@@ -1,0 +1,89 @@
+#mainTitleAddEdit {
+    font-size: 1.5em;
+}
+
+#sectionNameInfo, #sectionNameRole {
+    font-weight: bold;
+    font-size: 1em;
+    margin: 20px 0;
+}
+
+#sectionNameRole {
+    margin-bottom: 10px;
+}
+
+#memberForm p label {
+    display: none;
+}
+
+#memberForm p {
+    margin: 5px 0;
+}
+
+#memberForm input {
+    padding: 6px 12px;
+    border: solid thin #e0e0e0;
+    border-radius: 3px;
+    width: calc(100% - 25px);
+}
+
+#memberForm p:last-of-type {
+    display: none;
+}
+
+.radioButtonDiv input {
+    float: right;
+    width: auto !important;
+}
+
+.radioButtonDiv span {
+    font-size: 0.7em;
+}
+
+#saveButton {
+    position: absolute;
+    right: 10px; bottom: 10px;
+}
+
+#saveButton input {
+    width: 100%;
+    background-color: #5f86fb;
+    border: none;
+    color: white;
+    cursor: pointer;
+}
+
+#saveButton input:hover {
+    background-color: #3b6bfb;
+}
+
+#deleteButton {
+    position: absolute;
+    left: 10px; bottom: 10px;
+    border: solid thin #ddd;
+    padding: 6px 12px;
+    font-size: 0.7em;
+    border-radius: 3px;
+}
+
+#deleteButton:hover {
+    background-color: #eee;
+}
+
+#deleteButton a {
+    color: red;
+}
+
+#spaceSave {
+    height: 30px;
+}
+
+/* errors */
+ul.errorlist {
+    list-style-type: none;
+    color: red;
+    font-size: 0.7em;
+    margin: 0;
+    padding: 0;
+
+}
