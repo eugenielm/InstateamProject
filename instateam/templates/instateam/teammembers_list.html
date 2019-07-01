@@ -9,8 +9,6 @@
         <div id="addMemberButton"><a href="{% url 'team_members_create' %}">+</a></div>
 
         <div id="mainTitle">Team members</div>
-
-        {% if team_members and team_members.count >= 0 %}
             
         <div id="subTitle">You have {{team_members.count}} team members.</div>
 
@@ -34,8 +32,6 @@
             {% endfor %}
             
             <hr>
-
-        {% endif %}
     </div>
 
 {% endblock %}
