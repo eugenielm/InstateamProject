@@ -25,12 +25,23 @@ cd ~/path/to/InstateamProject/
 pip install requirements.txt
 ```
 
-4. Launch the dev server (if no port number is specified, it will run on port 8000 by default)
+4. Set the projects's secret key (a string containing any characters) as an environment variable, either by running:
+```sh
+export $SECRET_KET=<my_secret_key>
+```
+or by creating a text file called 'dev_secret_key.txt' containing the key at the root of the project
+
+5. Apply the migrations by running:
+```sh
+python manage.py migrate
+```
+
+6. Launch the dev server (if no port number is specified, it will run on port 8000 by default)
 ```sh
 python manage.py runserver [port_number]
 ```
 
-5. Load 'localhost:8000' in your web browser, et voilà!
+7. Load 'localhost:8000' in your web browser, et voilà!
 
 
 To run the tests
