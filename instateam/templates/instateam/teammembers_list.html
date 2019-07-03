@@ -10,7 +10,7 @@
 
         <div id="mainTitle">Team members</div>
             
-        <div id="subTitle">You have {{team_members.count}} team members.</div>
+        <div id="subTitle">You have {{ team_members.count }} team member{{ team_members.count|pluralize }}.</div>
 
             {% for member in team_members %}
             <a href="{% url 'team_members_update' member.pk %}">
