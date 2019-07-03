@@ -5,7 +5,11 @@
 #sectionNameInfo {
     font-weight: bold;
     font-size: 1em;
-    margin: 20px 0;
+    margin: 15px 0;
+}
+
+#sectionNameInfo div:first-of-type {
+    margin-bottom: 10px;
 }
 
 #sectionNameRole {
@@ -23,7 +27,6 @@
 #sectionNameRole div:first-of-type {
     font-weight: bold;
     font-size: 1em;
-    margin: 15px 0;
 }
 
 #sectionNameRole label {
