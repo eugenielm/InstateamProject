@@ -22,7 +22,7 @@ cd ~/path/to/InstateamProject/
 
 3. Install the dependencies by running the command below (you might want to create a virtual environment before running it):
 ```sh
-pip install requirements.txt
+pip install -r requirements.txt
 ```
 
 4. Set the projects's secret key (a string containing any characters) as an environment variable, either by running:
