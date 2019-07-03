@@ -13,7 +13,7 @@ class UrlsTestCase(TestCase):
         self.default_attributes = {
             'first_name': 'Second',
             'last_name': 'Team Member',
-            'phone': '000-111-2222',
+            'phone': '4159374444',
             'email': 'second@example.com',
             'role': 'regular',
         }
@@ -23,7 +23,7 @@ class UrlsTestCase(TestCase):
         mb = TeamMember.objects.create(
             first_name="Eugenie", 
             last_name="Le Moulec", 
-            phone="111-222-3333", 
+            phone="4159375555", 
             email="eugenie@example.com")
         self.initial_member = mb
 
@@ -42,7 +42,7 @@ class UrlsTestCase(TestCase):
         self.assertEqual(resp.redirect_chain[-1], (reverse('team_members_list'), 302))
 
 
-    def test_list_view(self):
+    def test_teammember_list_view(self):
         resp = self.client.get(reverse('team_members_list'))
         self.assertTemplateUsed(resp, 'instateam/teammembers_list.html')
         self.assertIs(resp.is_rendered, True)
@@ -50,7 +50,7 @@ class UrlsTestCase(TestCase):
         self.assertEqual(resp.context_data['object_list'].first().first_name, 'Eugenie')
         
 
-    def test_add_view(self):
+    def test_teammember_add_view(self):
         resp = self.client.get(reverse('team_members_create'))
         self.assertTemplateUsed(resp, 'instateam/teammembers_cud.html')
         self.assertIs(resp.is_rendered, True)
@@ -64,7 +64,7 @@ class UrlsTestCase(TestCase):
         self.assertEqual(TeamMember.objects.all().count(), 2)
 
 
-    def test_update_view(self):
+    def test_teammember_update_view(self):
         resp = self.client.get(reverse('team_members_update', kwargs={'pk': self.initial_member.id}))
         self.assertTemplateUsed(resp, 'instateam/teammembers_cud.html')
         self.assertIs(resp.is_rendered, True)
@@ -73,7 +73,7 @@ class UrlsTestCase(TestCase):
             'first_name': 'New Firstname',
             'last_name': 'New Lastname',
             'email': 'new@example.com',
-            'phone': '999-888-7777',
+            'phone': '4159376666',
             'role': 'regular',
         }
         resp2 = self.client.post(
@@ -92,7 +92,7 @@ class UrlsTestCase(TestCase):
         self.assertEqual(TeamMember.objects.all().count(), 2)
 
 
-    def test_delete_view(self):
+    def test_teammember_delete_view(self):
         resp = self.client.post(
             reverse('team_members_delete', kwargs={'pk': self.initial_member.id}), 
             follow=True)
@@ -101,18 +101,18 @@ class UrlsTestCase(TestCase):
         self.assertEqual(TeamMember.objects.all().count(), 0)
 
 
-    def test_create_teammember(self):
+    def test_teammember_create(self):
         "Make sure unique and non-blank contraints are enforced when creating/updating a TeamMember instance"
         self.create_teammember(**self.default_attributes)
-        # object instanciation without saving - with the same attributes as the obj instantiated above
+        # object instanciation with valid attributes except there's already a user with that email and phone
         mb = self.get_unsaved_teammember(**self.default_attributes)
-        errors = True
+        errors = False
         try:
             mb.full_clean()
-            errors = False
         except ValidationError as e:
             self.assertTrue('phone' in e.message_dict)
             self.assertTrue('email' in e.message_dict)
+            errors = True
         self.assertIs(errors, True)
         
         # create member with empty fields
@@ -126,3 +126,63 @@ class UrlsTestCase(TestCase):
             self.assertTrue('phone' in e.message_dict)
             self.assertTrue('email' in e.message_dict)
         self.assertIs(errors, True)
+
+
+    def test_teammember_phone_number_format(self):
+        """Make sure the phone number can either be a valid US number with/without a country 
+        prefix, or a valid international number with a country prefix."""
+        attributes = self.default_attributes
+        
+        # US number with '+1' prefix (E164 format)
+        attributes.update(phone='+14159374444')
+        mb = self.get_unsaved_teammember(**attributes)
+        try:
+            mb.full_clean()
+            errors = False
+        except ValidationError:
+            errors = True
+        self.assertIs(errors, False)
+        
+        # 1 digit is missing
+        attributes.update({'phone': '+1415937444'})
+        mb = self.get_unsaved_teammember(**attributes)
+        try:
+            mb.full_clean()
+            errors = False
+        except ValidationError as e:
+            self.assertTrue('phone' in e.message_dict)
+            errors = True
+        self.assertIs(errors, True)
+
+        # international number with no country prefix
+        attributes.update({'phone': '0296283522'})
+        mb = self.get_unsaved_teammember(**attributes)
+        errors = True
+        try:
+            mb.full_clean()
+            errors = False
+        except ValidationError as e:
+            self.assertTrue('phone' in e.message_dict)
+            errors = True
+        self.assertIs(errors, True)
+
+        # international number with a country prefix
+        attributes.update({'phone': '+33296283522'})
+        mb = self.get_unsaved_teammember(**attributes)
+        errors = True
+        try:
+            mb.full_clean()
+            errors = False
+        except ValidationError:
+            errors = True
+        self.assertIs(errors, False)
+
+        # US number with standard format
+        attributes.update({'phone': '(415) 937-4468'})
+        mb = self.get_unsaved_teammember(**attributes)
+        try:
+            mb.full_clean()
+            errors = False
+        except ValidationError:
+            errors = True
+        self.assertIs(errors, False)

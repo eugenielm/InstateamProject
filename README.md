@@ -60,7 +60,6 @@ To be improved
 
 - change database: sqlite3 is not suitable for production
 - allow unicode characters in the team members' first and last names
-- allow more flexibility in the phone number formats (currently only the 111-222-3333 format is allowed)
 - write more thorough tests (e.g. use Selenium and a web driver to test the templates)
 - create nice error403, error404, and Error500 pages/templates to avoid landing on the ugly default ones ;)
 
