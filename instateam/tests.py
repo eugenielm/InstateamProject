@@ -3,6 +3,7 @@ from django.test import TestCase, Client
 from django.urls import reverse
 
 from .models import TeamMember
+from .forms import TeamMemberForm
 
 
 class UrlsTestCase(TestCase):
@@ -186,3 +187,70 @@ class UrlsTestCase(TestCase):
         except ValidationError:
             errors = True
         self.assertIs(errors, False)
+
+
+    def test_teammember_form(self):
+        "Test the TeamMemberForm"
+        form_data = self.default_attributes.copy()
+        form = TeamMemberForm(data=form_data)
+        self.assertTrue(form.is_valid())
+
+        # no first name
+        form_data = self.default_attributes.copy()
+        form_data['first_name'] = ''
+        form = TeamMemberForm(data=form_data)
+        self.assertFalse(form.is_valid())
+
+        # invalid first name
+        form_data = self.default_attributes.copy()
+        form_data['first_name'] = 'John2'
+        form = TeamMemberForm(data=form_data)
+        self.assertFalse(form.is_valid())
+
+        # no last name
+        form_data = self.default_attributes.copy()
+        form_data['last_name'] = ''
+        form = TeamMemberForm(data=form_data)
+        self.assertFalse(form.is_valid())
+
+        # invalid last name
+        form_data = self.default_attributes.copy()
+        form_data['last_name'] = 'John2'
+        form = TeamMemberForm(data=form_data)
+        self.assertFalse(form.is_valid())
+
+        # no email
+        form_data = self.default_attributes.copy()
+        form_data['email'] = ''
+        form = TeamMemberForm(data=form_data)
+        self.assertFalse(form.is_valid())
+
+        # invalid email
+        form_data = self.default_attributes.copy()
+        form_data['email'] = 'John@example'
+        form = TeamMemberForm(data=form_data)
+        self.assertFalse(form.is_valid())
+
+        # no phone number
+        form_data = self.default_attributes.copy()
+        form_data['phone'] = ''
+        form = TeamMemberForm(data=form_data)
+        self.assertFalse(form.is_valid())
+
+        # invalid phone number
+        form_data = self.default_attributes.copy()
+        form_data['phone'] = '0666905410'
+        form = TeamMemberForm(data=form_data)
+        self.assertFalse(form.is_valid())
+
+        # valid US phone number
+        form_data = self.default_attributes.copy()
+        form_data['phone'] = '415-937-4372'
+        form = TeamMemberForm(data=form_data)
+        self.assertTrue(form.is_valid())
+
+        # valid international phone number
+        form_data = self.default_attributes.copy()
+        form_data['phone'] = '+33296283522'
+        form = TeamMemberForm(data=form_data)
+        self.assertTrue(form.is_valid())
